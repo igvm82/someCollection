@@ -219,8 +219,7 @@ default:
         System.arraycopy(map, 0, temp, 0, length);
         arraySize=arraySize+10;
         map=temp;
-        System.out.println("map has grown to "+arraySize);
-        System.out.println(map.length);
+//        System.out.println("map has grown to "+arraySize);
     }
     
     //class that represents an item with a value and a identifier
