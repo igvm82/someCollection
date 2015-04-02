@@ -33,6 +33,8 @@ Scanner scanner = new Scanner(System.in);
 boolean exit=false;
 
 // Switch construct
+
+//the programs is running while de exit variable is false
 while(!exit){
 String next = scanner.next();
 switch (next) {
@@ -82,7 +84,7 @@ case "6":
 default:
 //  System.out.println("bye!");
 //  exit=true;
-  break; // This break is not really necessary
+  break; 
 }
 }
     }
@@ -91,7 +93,6 @@ default:
     private static void printMenu() {
         //  menu 
 
-        System.out.println("");
         System.out.println("");
         System.out.println("");
         System.out.println("");
@@ -106,6 +107,8 @@ default:
         System.out.println("|        5. test                |");
         System.out.println("|        6. exit                |");
         System.out.println(" ===============================");
+        System.out.println("");
+        System.out.print(">>");
     }
 
     public SomeCollection() {
@@ -149,7 +152,7 @@ default:
         return null;
     }
     
-    //operation used to find the biggest value and remove all the times this value is found into the array
+    //operation used to remove the biggest value 
     public Integer removeLargest(){
         Integer large=findLargest();
 //        removeAll(large);
