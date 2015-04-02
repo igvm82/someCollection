@@ -16,11 +16,11 @@ import java.util.Scanner;
  */
 public class SomeCollection {
     
-    Bucket[] map;
-    int length;
+    Bucket[] map;// my array of Bucket for add elements
+    int length; // this is the current length of my collection
     int identifier;
     private int index;
-    private  int arraySize;
+    private  int arraySize;//this is the real size of my array that is gonna be growing according to it needs
 
     /**
      * @param args the command line arguments
@@ -37,19 +37,19 @@ while(!exit){
 String next = scanner.next();
 switch (next) {
 case "1":
-  System.out.println("type an Integer: ");   // This is where I want to call the class
+  System.out.println("type an Integer: ");   
   Integer intToAdd=Integer.parseInt(scanner.next());
     System.out.println("the value was added with an identifier: "+col.insert(intToAdd)) ;
     printMenu();
   break;
 case "2":
-  System.out.println("type an identifier to delete:");  // this is where I want to call the class
+  System.out.println("type an identifier to delete:"); 
   Integer intToDelete=Integer.parseInt(scanner.next());
     System.out.println("the value was deleted : "+col.remove(intToDelete)) ;
     printMenu();
   break;
 case "3":
-  System.out.println("type an identifier to delete:");  // this is where I want to call the class
+  System.out.println("type an identifier to delete:");  
 //  Integer intToDelete=Integer.parseInt(scanner.next());
     System.out.println("the biggest value is : "+col.removeLargest()) ;
     printMenu();
@@ -89,9 +89,8 @@ default:
     
 
     private static void printMenu() {
-        // Display menu graphics
-        System.out.println("");
-        System.out.println("");
+        //  menu 
+
         System.out.println("");
         System.out.println("");
         System.out.println("");
@@ -117,15 +116,16 @@ default:
         this.arraySize=10;
     }
     
+    //operation that adds the element into the array
     public Integer insert(Integer element){
         if (element==null){
             return null;
         }
-        
+        // if necessary increase the size of the array
         if(this.length==this.arraySize){
             growUpArray();
         }
-        
+        // get my identifier for the new element
         int ident=getIdentifier();
         map[index]=new Bucket(ident,element);
         length ++;
@@ -133,8 +133,10 @@ default:
         return ident;
     }
     
-    
+    //operation that remove an element from the array
     public Integer remove(Integer identifier){
+        
+        // runs through the Array, comparing the identifier searched till it is found from the begining to the end if necessary 
         for (int i = 0; i < this.length; i++) {
             if(map[i].identifier==identifier){
                 Integer value=(Integer)map[i].value;
@@ -147,12 +149,27 @@ default:
         return null;
     }
     
+    //operation used to find the biggest value and remove all the times this value is found into the array
     public Integer removeLargest(){
         Integer large=findLargest();
-        removeAll(large);
+//        removeAll(large);
+        removeFirst(large);
         return large;
     }
     
+    //operation for remove the first element that match with the value sent
+    private void removeFirst(Integer value){
+        for (int i = 0; i < this.length; i++) {
+            if(map[i].value==value){
+                
+                index(i);
+                length--;
+                index--;
+                return;
+            }
+        }
+    }
+    //operation for remove all the elements that match with the value sent
     private void removeAll(Integer value){
         for (int i = 0; i < this.length; i++) {
             if(map[i].value==value){
@@ -160,17 +177,21 @@ default:
                 index(i);
                 length--;
                 index--;
-                
+                removeAll(value);
+                return;
             }
         }
     }
     
+    //operation used to move the elements through the array, when one is gonna be deleted
     private void index(int index){
         for (int i = index; i < length-1; i++) {
             map[i]=map[i+1];
             map[i+1]=null;
         }
     }
+    
+    //operation used to find the bigger value into the array
     private Integer findLargest(){
         Integer mayor=-1;
         for (int i = 0; i < length; i++) {
@@ -189,6 +210,7 @@ default:
         return identifier++;
     }
 
+    //operation used to grow the Array when it is gonna need to store more items
     private void growUpArray() {
         Bucket[] temp=new Bucket[arraySize+10];
         System.arraycopy(map, 0, temp, 0, length);
@@ -198,7 +220,7 @@ default:
         System.out.println(map.length);
     }
     
-    
+    //class that represents an item with a value and a identifier
     class Bucket{
         public int identifier;
         public Object value;
