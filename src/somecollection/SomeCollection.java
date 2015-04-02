@@ -112,11 +112,11 @@ default:
     }
 
     public SomeCollection() {
-        this.map = new Bucket[10];
+        this.map = new Bucket[100];
         this.length=0;
         this.index=0;
         this.identifier=100;
-        this.arraySize=10;
+        this.arraySize=100;
     }
     
     //operation that adds the element into the array
@@ -215,9 +215,9 @@ default:
 
     //operation used to grow the Array when it is gonna need to store more items
     private void growUpArray() {
-        Bucket[] temp=new Bucket[arraySize+10];
+        Bucket[] temp=new Bucket[arraySize+100];
         System.arraycopy(map, 0, temp, 0, length);
-        arraySize=arraySize+10;
+        arraySize=arraySize+100;
         map=temp;
 //        System.out.println("map has grown to "+arraySize);
     }
